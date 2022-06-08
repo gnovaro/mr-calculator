@@ -1,21 +1,89 @@
 {# templates/calculator.html.twig #}
-<header>
-    <h1>Mr. Calculator</h1>
-</header>
-<main>
-    <div>
-        <input type="text" readonly name="result" class="">
-    </div>
-    <div class="">
-        <input type="text" name="number">
-    </div>
-    <div>
-        <button name="plus" class="">+</button>
-        <button name="minus" class="">-</button>
-        <button name="multiplication" class="">*</button>
-        <button name="division" class="">/</button>
-    </div>
-    <div>
-        <button name="equal" class="">=</button>
-    </div>
-</main>
+{% extends "base.html.twig" %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('/asset/css/calculator.css') }}">
+{% endblock %}
+
+{% block body %}
+    <main class="container">
+        <form method="post" id="form-calculator" class="container">
+        <input type="hidden" name="num1" id="num1" value="">
+        <input type="hidden" name="num2" id="num2" value="">
+        <input type="hidden" name="operator" id="operator" value="">
+        <header>
+            <h1>Mr. Calculator</h1>
+        </header>
+        <div>
+            <input type="text" name="result" id="result" value="{{ result }}" readonly class="">
+        </div>
+        <div class="">
+            <input type="text" name="number" id="number" class="">
+        </div>
+        <div>
+            <button type="button" name="plus" id="btn-plus" class="btn">+</button>
+            <button type="button" name="minus" id="btn-minus" class="btn">-</button>
+            <button type="button" name="multiplication" id="btn-multiplication" class="btn">*</button>
+            <button type="button" name="division" id="btn-division" class="btn">/</button>
+        </div>
+        <div>
+            <button type="button" name="equal" id="btn-equal" class="btn btn-green">=</button>
+        </div>
+        </form>
+    </main>
+    {% block javascripts %}
+        <!--<script src="{{ asset('/asset/js/calculator.js') }}"></script>-->
+        <script>
+            const result = document.getElementById('result');
+            const number = document.getElementById('number');
+            const num1 = document.getElementById('num1');
+            const num2 = document.getElementById('num2');
+            const operator = document.getElementById('operator');
+
+            const btn_plus = document.getElementById("btn-plus");
+            const btn_minus = document.getElementById("btn-minus");
+            const btn_multiplication = document.getElementById("btn-multiplication");
+            const btn_division = document.getElementById("btn-division");
+            const btn_equal = document.getElementById("btn-equal");
+
+            btn_plus.addEventListener("click", plus);
+            btn_minus.addEventListener("click", minus);
+            btn_multiplication.addEventListener("click", multiplication);
+            btn_division.addEventListener("click", division);
+            btn_equal.addEventListener("click", equal);
+
+            function plus()
+            {
+                num1.value = number.value;
+                number.value = '';
+                operator.value = '+';
+            }
+
+            function minus()
+            {
+                num1.value = number.value;
+                number.value = '';
+                operator.value = '-';
+            }
+
+            function multiplication()
+            {
+                num1.value = number.value;
+                number.value = '';
+                operator.value = '*';
+            }
+
+            function division()
+            {
+                num1.value = number.value;
+                number.value = '';
+                operator.value = '/';
+            }
+
+            function equal()
+            {
+                num2.value = number.value;
+                document.getElementById('form-calculator').submit();
+            }
+        </script>
+    {% endblock %}
+{% endblock %}
